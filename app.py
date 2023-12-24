@@ -29,7 +29,7 @@ def main():
     url = st.text_input(label="Enter URL:")
     # st.write("Entered URL:", url)
 
-    if st.button("video"):
+    if st.button("video:max 720p)"):
         filename=None
         for _ in range(10):
             try:
