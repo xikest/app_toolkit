@@ -30,11 +30,13 @@ def main():
     # st.write("Entered URL:", url)
     col1, col2 = st.columns(2)
     with col1:
-        if st.button("video, 720p, mp4"):
+        resolution = st.radio("Select resolution:", ["720p", "1080p"])
+        if st.button("video, mp4"):
             filename=None
             for _ in range(10):
                 try:
-                    filename = download_video(url)
+                    st.write(resolution)
+                    filename = download_video(url, resolution)
                     break
                 except:
                     pass

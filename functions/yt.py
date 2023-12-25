@@ -1,10 +1,15 @@
 from pytube import YouTube
 import streamlit as st
-def download_video(url):
+def download_video(url, resolution="720p"):
     try:
         yt = YouTube(url)
         print(f"Downloading {yt.title}...")
-        video_stream = yt.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first()
+        if resolution is "720p":
+            video_stream = yt.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first()
+        if resolution is "1080p":
+            video_stream = yt.streams.filter(adaptive=True, file_extension='mp4').order_by(
+                'resolution').desc().first()
+
         if not video_stream:
             raise ValueError("No video stream found for the given URL.")
 
