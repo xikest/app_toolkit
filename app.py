@@ -35,7 +35,6 @@ def main():
             filename=None
             for _ in range(10):
                 try:
-                    st.write(resolution)
                     filename = download_video(url, resolution)
                     break
                 except:
