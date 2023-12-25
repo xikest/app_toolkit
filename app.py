@@ -43,7 +43,7 @@ def main():
 
             if filename is not None:
                 st.success(f"Video downloaded successfully: {filename}")
-                # Display download button
+                # Display download button.
                 file_path = os.path.join(os.getcwd(), f"{filename}")
                 with open(file_path, "rb") as file:
                     video_file = file.read()
