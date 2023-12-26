@@ -6,8 +6,8 @@ def download_video(url, resolution="720p"):
         print(f"Downloading {yt.title}...")
         if resolution is "720p":
             video_stream = yt.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first()
-        if resolution is "1080p":
-            video_stream = yt.streams.filter(adaptive=True, file_extension='mp4').order_by(
+        if resolution is "max":
+            video_stream = yt.streams.filter().order_by(
                 'resolution').desc().first()
 
         if not video_stream:
