@@ -56,7 +56,7 @@ def main():
             else:
                 st.error("Failed to download video.", icon= "🚨")
     with col2:
-        if st.button("audio, mp4"):
+        if st.button("audio"):
             filename = None
             for _ in range(10):
                 try:
@@ -70,12 +70,12 @@ def main():
                 # Display download button
                 file_path = os.path.join(os.getcwd(), f"{filename}")
                 with open(file_path, "rb") as file:
-                    video_file = file.read()
+                    audio_file = file.read()
                     st.download_button(
                         label="Download Audio",
-                        data=video_file,
+                        data=audio_file,
                         file_name=f"{filename}",
-                        mime="audio/mp4"
+                        mime="audio/mp3"
                     )
             else:
                 st.error("Failed to download audio.", icon= "🚨")
