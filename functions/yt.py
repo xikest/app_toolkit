@@ -1,7 +1,5 @@
 from pytube import YouTube
-import os
-from moviepy.editor import VideoFileClip
-import streamlit as st
+
 def download_video(url, resolution="720p"):
     try:
         yt = YouTube(url)
@@ -22,9 +20,6 @@ def download_video(url, resolution="720p"):
         # st.error(f"Error: {e}")
         return None
 
-
-
-
 def download_audio(url):
     try:
         yt = YouTube(url)
@@ -34,8 +29,6 @@ def download_audio(url):
             raise ValueError("No audio stream found for the given URL.")
         audio_stream.download()
         filename = audio_stream.default_filename
-
-
         return filename
     except Exception as e:
         # st.error(f"Error: {e}")
