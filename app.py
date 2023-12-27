@@ -40,7 +40,6 @@ def main():
                 except:
                     pass
 
-
             if filename is not None:
                 st.success(f"Video downloaded successfully: {filename}")
                 # Display download button.
@@ -55,6 +54,8 @@ def main():
                     )
             else:
                 st.error("Failed to download video.", icon= "🚨")
+
+
     with col2:
         if st.button("audio"):
             filename = None
