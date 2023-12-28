@@ -8,13 +8,13 @@ from functions.pdf import *
 def main():
     # Basic setting
     st.set_page_config(
-        page_title="Downloader",
+        page_title="Tool kit",
         layout="wide",
         initial_sidebar_state="collapsed"
     )
 
     # Title
-    st.header("Downloader")
+    st.header("Tool kit")
 
     # Sidebar
     with st.sidebar:
@@ -28,6 +28,7 @@ def main():
 
     tab1, tab2 = st.tabs(["YT", "PDF"])
     with tab1:
+        st.title("YT Downloader")
         # User input for YouTube URL
         url = st.text_input(label="Enter URL:")
         # st.write("Entered URL:", url)
