@@ -34,7 +34,7 @@ def main():
         # st.write("Entered URL:", url)
         col1, col2 = st.columns(2)
         with col1:
-            resolution = st.radio("Select resolution:", ["720p", "max"])
+            resolution = st.radio("Select resolution:", ["720p", "Max(w/o audio)"])
             if st.button("video"):
                 filename=None
                 for _ in range(10):
