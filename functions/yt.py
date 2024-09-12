@@ -1,20 +1,20 @@
-from pytube import YouTube
+import yt_dlp
 
 def download_video(url, resolution="720p"):
     try:
-        yt = YouTube(url)
-        print(f"Downloading {yt.title}...")
-        if resolution is "720p":
-            video_stream = yt.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first()
-        if resolution is "max":
-            video_stream = yt.streams.filter().order_by(
-                'resolution').desc().first()
+        print(f"Downloading video from: {url}")
+        
+        # yt-dlp 옵션 설정
+        ydl_opts = {
+            'format': 'bestvideo[height<=720]+bestaudio/best[height<=720]' if resolution == "720p" else 'best',  # 720p 또는 최고 화질
+            'outtmpl': '%(title)s.%(ext)s'  # 파일 이름을 제목으로 설정
+        }
 
-        if not video_stream:
-            raise ValueError("No video stream found for the given URL.")
-
-        video_stream.download()
-        filename = video_stream.default_filename
+        # 다운로드 실행
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info_dict = ydl.extract_info(url, download=True)
+            filename = ydl.prepare_filename(info_dict)
+        
         return filename
     except Exception as e:
         # st.error(f"Error: {e}")
@@ -22,15 +22,25 @@ def download_video(url, resolution="720p"):
 
 def download_audio(url):
     try:
-        yt = YouTube(url)
-        print(f"Downloading {yt.title}...")
-        audio_stream = yt.streams.filter(only_audio=True, file_extension='mp4').order_by('abr').desc().first()
-        if not audio_stream:
-            raise ValueError("No audio stream found for the given URL.")
-        audio_stream.download()
-        filename = audio_stream.default_filename
+        print(f"Downloading audio from: {url}")
+        
+        # yt-dlp 옵션 설정 (only audio)
+        ydl_opts = {
+            'format': 'bestaudio/best',  # 최고 음질
+            'outtmpl': '%(title)s.%(ext)s',  # 파일 이름을 제목으로 설정
+            'postprocessors': [{  # mp3로 변환 (원하면 주석 제거)
+                'key': 'FFmpegExtractAudio',
+                'preferredcodec': 'mp3',
+                'preferredquality': '192',
+            }]
+        }
+
+        # 다운로드 실행
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info_dict = ydl.extract_info(url, download=True)
+            filename = ydl.prepare_filename(info_dict)
+        
         return filename
     except Exception as e:
         # st.error(f"Error: {e}")
         return None
-
